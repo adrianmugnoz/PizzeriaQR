@@ -1,0 +1,49 @@
+<ion-view title="Carrito">
+  <ion-content class="has-header padding">
+
+<!-- <ion-list>
+      <ion-item ng-repeat="pedido in carrito">
+        {{pedido.producto}} | Qty: {{pedido.cantidad}} | Tamaño: {{pedido.tamanio}} | Precio: {{pedido.precio}} [<a href ng:click="removeItem($index)">X</a>]
+      </ion-item>
+    </ion-list> -->
+
+    <div class="list">
+
+        <div ng-repeat="pedido in carrito" 
+           class="item item-thumbnail-left">
+
+          <img ng-src="{{pedido.imagen}}">
+          <h2>{{pedido.cantidad}}x {{ pedido.producto }} {{pedido.tamanio}}</h2>
+          <h4>{{pedido.precio | number:2}}€</h4>
+          <i ng:click="removeItem($index)" class="icon ion-close-circled assertive" style="font-size:20px"></i>
+        </div>
+
+      </div>
+
+      <input type="text" ng-model="cupon" placeholder="Cupon de descuento">
+      
+
+Total: {{checkCupon(cupon)}}€
+
+<button ng-disabled="total() == 0 " ng-click="modal.show()" class="button button-block icon-left ion-qr-scanner button-positive">Generar QR</button>
+
+
+  </ion-content>
+
+  <script id="modal.html" type="text/ng-template">
+      <div class="modal" ng-controller="ModalCtrl">
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">QR de su pedido</h1>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="center">
+        <div class="row row-center">
+        <div class="col">
+          <qr text="datosQR()" image="true" ></qr>
+          </div>
+        </div>  
+        </ion-content>
+      </div>
+    </script>
+
+</ion-view>

@@ -1,0 +1,61 @@
+<ion-view title="Pizzas">
+    
+<ion-nav-buttons side="left">
+      <button class="button" ng-click="numColumns(1)">
+        1      </button>
+      <button class="button" ng-click="numColumns(2)">
+        2      </button>
+      <button class="button" ng-click="numColumns(3)">
+        3      </button>
+    </ion-nav-buttons>
+
+<ion-nav-buttons side="right">
+      <a class="button" href="#/tab/carrito"><i class="icon ion-ios7-cart carrito"></i><span style="font-size:20px !important">{{totalCarrito() | number:2}}€</span></a>
+    </ion-nav-buttons>    
+  <ion-content class="has-header padding">
+
+ 
+<div class="row" ng-repeat="row in pizzas | partition: columnas">
+
+<div class="col" ng-repeat="pizza in row">
+ <div class="list card">
+
+  <div class="item">
+    <h2>{{pizza.nombre}}</h2>
+    <p>{{pizza.desc}}</p>
+  </div>
+
+  <div class="item item-image">
+    <img src="img/pizzas/{{pizza.img}}.png">
+  </div>
+
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Tamaño
+    </div>
+    <select ng-model="tamanio" ng-init="tamanio='med'">
+      <option value="peq">Pequeña</option>
+      <option value="med">Mediana</option>
+      <option value="fam">Familiar</option>
+    </select>
+  </label>
+
+
+<div class="item tabs tabs-icon-left">
+    <div class="tab-item">
+      <input id="qty" type="number" ng-model="cantidad" ng-init="cantidad=1" placeholder="Cantidad" min="1" style="width: 50px">
+    </div>
+    
+    <!-- <div ng-click="save({{cantidad}},{{tamanio}},{{pizza.nombre}},{{pizza.precio}})" class="tab-item assertive" style="font-size:22px"> -->
+    <div ng-click="save(cantidad,tamanio,pizza.nombre, precios[pizza.precio]*cantidad*(factores[tamanio]), 'img/pizzas/{{pizza.img}}.png')" class="tab-item item-right assertive" style="font-size:22px">
+      <i class="icon ion-ios7-cart carrito"></i>
+      {{precio(cantidad, precios[pizza.precio], factores[tamanio]) | number:2}}€
+      
+    </div>
+    
+  </div>
+
+</div>
+
+  </ion-content>
+</ion-view>
